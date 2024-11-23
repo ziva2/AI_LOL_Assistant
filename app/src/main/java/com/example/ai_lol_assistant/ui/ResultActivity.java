@@ -1,8 +1,6 @@
 package com.example.ai_lol_assistant.ui;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -10,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ai_lol_assistant.R;
 import com.example.ai_lol_assistant.model.AccountResponse;
-import com.example.ai_lol_assistant.model.MatchDetail;
 import com.example.ai_lol_assistant.network.RiotApiClient;
 import com.example.ai_lol_assistant.network.RiotApiService;
 
@@ -25,7 +22,6 @@ import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
     private TextView tvSummonerName;
     private TextView tvSummonerInfo;
-    private TextView tvChampionMastery;
     private TextView tvMatchData;
     private RiotApiService riotApiService;
 

@@ -1,7 +1,7 @@
 package com.example.ai_lol_assistant.network;
 
 import com.example.ai_lol_assistant.model.AccountResponse;
-import com.example.ai_lol_assistant.model.MatchDetail;
+import com.example.ai_lol_assistant.model.MatchDto;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface RiotApiService {
     );
 
     @GET("lol/match/v5/matches/{matchId}")
-    Call<MatchDetail> getMatchDetail(
+    Call<MatchDto> getMatchDetail(
             @Path("matchId") String matchId
     );
 
