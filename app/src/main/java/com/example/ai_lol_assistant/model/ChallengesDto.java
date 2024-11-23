@@ -1,4 +1,4 @@
-package com.example.ai_lol_assistant.RiotApiData;
+package com.example.ai_lol_assistant.model;
 
 import java.util.List;
 

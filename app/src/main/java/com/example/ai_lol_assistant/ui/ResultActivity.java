@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ai_lol_assistant.R;
-import com.example.ai_lol_assistant.model.AccountResponse;
+import com.example.ai_lol_assistant.model.AccountDto;
 import com.example.ai_lol_assistant.network.RiotApiClient;
 import com.example.ai_lol_assistant.network.RiotApiService;
 
@@ -62,11 +62,11 @@ public class ResultActivity extends AppCompatActivity {
             String encodedUserName = URLEncoder.encode(userName, StandardCharsets.UTF_8.toString());
 
             riotApiService.getAccountByRiotId(encodedUserName, tagLine)
-                    .enqueue(new Callback<AccountResponse>() {
+                    .enqueue(new Callback<AccountDto>() {
                         @Override
-                        public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+                        public void onResponse(Call<AccountDto> call, Response<AccountDto> response) {
                             if (response.isSuccessful() && response.body() != null) {
-                                AccountResponse account = response.body();
+                                AccountDto account = response.body();
                                 tvSummonerInfo.setText(
                                         "소환사명: " + account.getGameName() + "\n" +
                                                 "Tag Line: " + account.getTagLine()
@@ -79,7 +79,7 @@ public class ResultActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<AccountResponse> call, Throwable t) {
+                        public void onFailure(Call<AccountDto> call, Throwable t) {
                             Toast.makeText(ResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });

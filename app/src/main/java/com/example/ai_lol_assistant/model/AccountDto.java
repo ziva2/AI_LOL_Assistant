@@ -1,6 +1,6 @@
 package com.example.ai_lol_assistant.model;
 
-public class AccountResponse {
+public class AccountDto {
     private String puuid;
     private String gameName;
     private String tagLine;
