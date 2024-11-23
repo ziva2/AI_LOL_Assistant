@@ -6,12 +6,21 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- 소환사 이름 표시 -->
     <TextView
         android:id="@+id/tvSummonerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Summoner Name:"
+        android:text="Summoner: "
         android:textSize="18sp"
+        android:padding="8dp" />
+
+    <!-- RecyclerView for match data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMatchData"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:padding="8dp" />
 
 </LinearLayout>
