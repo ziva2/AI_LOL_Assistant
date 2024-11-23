@@ -1,5 +1,7 @@
 package com.example.ai_lol_assistant.model;
 
+//각 경기 데이터 저장
+
 public class Match {
     private String championName;
     private String result; // Win or Loss
@@ -15,6 +17,7 @@ public class Match {
         this.assists = assists;
     }
 
+    // Getters
     public String getChampionName() {
         return championName;
     }

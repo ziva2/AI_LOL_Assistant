@@ -37,6 +37,9 @@ public class MatchDataAdapter extends RecyclerView.Adapter<MatchDataAdapter.Matc
         return matchList.size();
     }
 
+    public void updateData(List<Match> matches) {
+    }
+
     static class MatchViewHolder extends RecyclerView.ViewHolder {
         TextView tvChampionName, tvResult, tvKDA;
 

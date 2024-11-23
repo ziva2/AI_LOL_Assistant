@@ -6,21 +6,39 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 소환사 이름 표시 -->
+    <!-- 유저명 표시 -->
     <TextView
         android:id="@+id/tvSummonerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Summoner: "
+        android:text="Summoner Name"
         android:textSize="18sp"
         android:padding="8dp" />
 
-    <!-- RecyclerView for match data -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMatchData"
+    <!-- 소환사 정보 표시 -->
+    <TextView
+        android:id="@+id/tvSummonerInfo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Summoner Info"
+        android:textSize="16sp"
         android:padding="8dp" />
 
+    <!-- 챔피언 숙련도 표시 -->
+    <TextView
+        android:id="@+id/tvChampionMastery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Champion Mastery"
+        android:textSize="16sp"
+        android:padding="8dp" />
+
+    <!-- 매치 데이터 표시 -->
+    <TextView
+        android:id="@+id/tvMatchData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Match Data"
+        android:textSize="16sp"
+        android:padding="8dp" />
 </LinearLayout>
