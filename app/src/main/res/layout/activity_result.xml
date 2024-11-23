@@ -24,15 +24,6 @@
         android:textSize="16sp"
         android:padding="8dp" />
 
-    <!-- 챔피언 숙련도 표시 -->
-    <TextView
-        android:id="@+id/tvChampionMastery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Champion Mastery"
-        android:textSize="16sp"
-        android:padding="8dp" />
-
     <!-- 매치 데이터 표시 -->
     <TextView
         android:id="@+id/tvMatchData"

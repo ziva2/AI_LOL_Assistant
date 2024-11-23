@@ -1,7 +1,6 @@
 package com.example.ai_lol_assistant.network;
 
 import com.example.ai_lol_assistant.model.AccountResponse;
-import com.example.ai_lol_assistant.model.ChampionMastery;
 import com.example.ai_lol_assistant.model.MatchDetail;
 
 import java.util.List;
@@ -17,12 +16,6 @@ public interface RiotApiService {
     Call<AccountResponse> getAccountByRiotId(
             @Path("userName") String userName,
             @Path("tagLine") String tagLine
-    );
-
-    //챔피언 숙련도
-    @GET("lol/champion-mastery/v4/champion-masteries/by-summoner/{summonerId}")
-    Call<List<ChampionMastery>> getChampionMasteries(
-            @Path("summonerId") String summonerId
     );
 
     @GET("lol/match/v5/matches/by-puuid/{puuid}/ids")

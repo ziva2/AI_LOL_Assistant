@@ -15,6 +15,16 @@
         android:hint="Enter Summoner Name"
         android:padding="8dp"
         android:inputType="text"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 태그라인 입력 -->
+    <EditText
+        android:id="@+id/etTagLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Tag Line (e.g., KR1)"
+        android:padding="8dp"
+        android:inputType="text"
         android:layout_marginBottom="16dp" />
 
     <!-- 검색 버튼 -->
