@@ -26,8 +26,7 @@ public interface RiotApiService {
     );
 
     @GET("lol/match/v5/matches/{matchId}")
-    Call<MatchDto> getMatchDetail(
+    Call<MatchDto> getMatchById(
             @Path("matchId") String matchId
     );
-
 }

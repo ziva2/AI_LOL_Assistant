@@ -1,8 +1,9 @@
 package com.example.ai_lol_assistant.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ParticipantDto {
+public class ParticipantDto implements Serializable {
     // 필드 정의
     private int allInPings;
     private int assistMePings;

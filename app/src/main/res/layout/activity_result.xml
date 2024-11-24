@@ -1,35 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#FFFFFF"> <!-- 전체 배경은 흰색 -->
 
-    <!-- 유저명 표시 -->
-    <TextView
-        android:id="@+id/tvSummonerName"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Summoner Name"
-        android:textSize="18sp"
-        android:padding="8dp" />
+        android:layout_height="wrap_content">
 
-    <!-- 소환사 정보 표시 -->
-    <TextView
-        android:id="@+id/tvSummonerInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Summoner Info"
-        android:textSize="16sp"
-        android:padding="8dp" />
+        <!-- 소환사 이름 -->
+        <TextView
+            android:id="@+id/tvSummonerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:textStyle="bold" />
 
-    <!-- 매치 데이터 표시 -->
-    <TextView
-        android:id="@+id/tvMatchData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Match Data"
-        android:textSize="16sp"
-        android:padding="8dp" />
-</LinearLayout>
+        <!-- 소환사 정보 -->
+        <TextView
+            android:id="@+id/tvSummonerInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_below="@id/tvSummonerName" />
+
+        <!-- 매치 데이터 표시 -->
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:layout_below="@id/tvSummonerInfo"
+            android:layout_marginTop="16dp" />
+
+        <!-- 추가 버튼 -->
+        <RelativeLayout
+            android:id="@+id/chat_two_bu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:clipToOutline="true"
+            android:background="@drawable/icon" /> <!-- 버튼 배경 설정 -->
+
+    </RelativeLayout>
+</ScrollView>

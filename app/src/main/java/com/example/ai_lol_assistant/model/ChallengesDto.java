@@ -7,12 +7,12 @@ public class ChallengesDto {
     private int assistStreakCount;
     private int baronBuffGoldAdvantageOverThreshold;
     private float controlWardTimeCoverageInRiverOrEnemyHalf;
-    private int earliestBaron;
-    private int earliestDragonTakedown;
+    private double earliestBaron;
+    private double earliestDragonTakedown;
     private int earliestElderDragon;
     private int earlyLaningPhaseGoldExpAdvantage;
     private int fasterSupportQuestCompletion;
-    private int fastestLegendary;
+    private double fastestLegendary;
     private int hadAfkTeammate;
     private int highestChampionDamage;
     private int highestCrowdControlScore;
@@ -31,7 +31,7 @@ public class ChallengesDto {
     private int soloTurretsLategame;
     private int takedownsFirst25Minutes;
     private int teleportTakedowns;
-    private int thirdInhibitorDestroyedTime;
+    private double thirdInhibitorDestroyedTime;
     private int threeWardsOneSweeperCount;
     private float visionScoreAdvantageLaneOpponent;
 
@@ -44,7 +44,7 @@ public class ChallengesDto {
     private float alliedJungleMonsterKills;
     private int baronTakedowns;
     private int blastConeOppositeOpponentCount;
-    private int bountyGold;
+    private double bountyGold;
     private int buffsStolen;
 
     // Support-related statistics
@@ -81,11 +81,11 @@ public class ChallengesDto {
         return controlWardTimeCoverageInRiverOrEnemyHalf;
     }
 
-    public int getEarliestBaron() {
+    public double getEarliestBaron() {
         return earliestBaron;
     }
 
-    public int getEarliestDragonTakedown() {
+    public double getEarliestDragonTakedown() {
         return earliestDragonTakedown;
     }
 
@@ -101,7 +101,7 @@ public class ChallengesDto {
         return fasterSupportQuestCompletion;
     }
 
-    public int getFastestLegendary() {
+    public double getFastestLegendary() {
         return fastestLegendary;
     }
 
@@ -169,7 +169,7 @@ public class ChallengesDto {
         return teleportTakedowns;
     }
 
-    public int getThirdInhibitorDestroyedTime() {
+    public double getThirdInhibitorDestroyedTime() {
         return thirdInhibitorDestroyedTime;
     }
 
@@ -213,7 +213,7 @@ public class ChallengesDto {
         return blastConeOppositeOpponentCount;
     }
 
-    public int getBountyGold() {
+    public double getBountyGold() {
         return bountyGold;
     }
 
