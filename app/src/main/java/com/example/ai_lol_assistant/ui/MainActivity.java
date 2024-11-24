@@ -3,6 +3,8 @@ package com.example.ai_lol_assistant.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 검색 버튼 클릭 이벤트
         btnSearch.setOnClickListener(v -> {
+            Animation clickAnimation = AnimationUtils.loadAnimation(this, R.anim.click_scale);
             String summonerName = etSummonerName.getText().toString().trim();
             String tagLine = etTagLine.getText().toString().trim();
 
