@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchMatchIds(String puuid, String summonerName, String tagLine) {
-        riotApiService.getMatchIds(puuid, 0, 20)
+        riotApiService.getMatchIds(puuid, 0, 10)
                 .enqueue(new Callback<List<String>>() {
                     @Override
                     public void onResponse(Call<List<String>> call, Response<List<String>> response) {
