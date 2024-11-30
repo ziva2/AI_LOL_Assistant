@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF"> <!-- 채팅 화면 배경도 흰색 -->
+    android:padding="16dp"> <!-- 채팅 화면 배경도 흰색 -->
 
     <!-- 채팅 출력 -->
     <TextView
@@ -13,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
         android:background="#F0F0F0"
         android:gravity="start|top"
+        android:padding="8dp"
         android:text="Chat output will appear here..."
         android:textSize="16sp" />
 
@@ -24,16 +23,16 @@
         android:id="@+id/etChatInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:hint="Type your message..."
-        android:padding="8dp"
-        android:background="#FFFFFF" />
+        android:padding="8dp" />
 
     <!-- 전송 버튼 -->
     <Button
         android:id="@+id/btnSendChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#49454F"
         android:text="Send"
-        android:background="#D9BD6E"
         android:textColor="#FFFFFF" />
 </LinearLayout>
