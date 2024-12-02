@@ -4,73 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#F0F0F0"
     android:padding="8dp"
-    android:layout_marginBottom="8dp">
+    android:background="#F0F0F0"
+    android:layout_marginBottom="8dp"
+    android:clipToOutline="true">
 
-    <!-- 간략 정보 -->
+    <!-- 상단 요약 정보 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <!-- 승패 여부 -->
-        <TextView
-            android:id="@+id/tvWinLoss"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
-
-        <!-- 챔피언 -->
+        <!-- 챔피언 이름 -->
         <TextView
             android:id="@+id/tvChampion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:padding="8dp"
             android:textColor="#000000" />
 
-        <!-- K/D/A -->
+        <!-- KDA -->
         <TextView
             android:id="@+id/tvKDA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
             android:textSize="14sp"
-            android:textColor="#000000" />
+            android:padding="8dp"
+            android:textColor="#333333" />
+
+        <!-- 승패 여부 -->
+        <TextView
+            android:id="@+id/tvWinLose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:textColor="#333333" />
 
         <!-- 더보기 버튼 -->
         <Button
             android:id="@+id/btnMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:text="더보기"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:padding="4dp" />
+            android:background="@android:color/transparent"
+            android:textColor="#0066CC" />
     </LinearLayout>
 
-    <!-- 상세 정보 (초기 상태 숨김) -->
+    <!-- 세부 정보 (기본으로 숨김 처리) -->
     <LinearLayout
-        android:id="@+id/detailContainer"
+        android:id="@+id/llDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        android:paddingTop="8dp">
+        android:padding="8dp">
 
-        <!-- 상세 정보 출력 -->
+        <!-- 팀 정보 -->
         <TextView
-            android:id="@+id/tvDetailedInfo"
+            android:id="@+id/tvTeamInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="#000000" />
+            android:textColor="#555555"
+            android:padding="4dp" />
+
+        <!-- 그래프 (Placeholder) -->
+        <View
+            android:id="@+id/graphPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#DDDDDD"
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 </LinearLayout>
