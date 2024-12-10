@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F0F0F0"
+        android:background="@drawable/bg_search_bar"
         android:gravity="start|top"
         android:padding="8dp"
         android:text="Chat output will appear here..."
@@ -32,7 +32,10 @@
         android:id="@+id/btnSendChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#49454F"
-        android:text="Send"
-        android:textColor="#FFFFFF" />
+        android:background="@drawable/bg_button"
+        android:backgroundTint="#49454F"
+        android:backgroundTintMode="src_atop"
+        android:text="Chat GPT에게 물어보기"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 </LinearLayout>
