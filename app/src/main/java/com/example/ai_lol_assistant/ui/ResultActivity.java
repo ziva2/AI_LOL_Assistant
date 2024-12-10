@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,6 +38,8 @@ public class ResultActivity extends AppCompatActivity {
         // UI 요소 초기화
         RecyclerView rvMatchHistory = findViewById(R.id.rvMatchHistory);
         Button btnChat = findViewById(R.id.btnChat);
+        TextView tvSummonerName = findViewById(R.id.tvSummonerName);
+        TextView tvSummonerInfo = findViewById(R.id.tvSummonerInfo);
 
         // Riot API 서비스 초기화
         riotApiService = RiotApiClient.getClient().create(RiotApiService.class);
@@ -47,6 +50,7 @@ public class ResultActivity extends AppCompatActivity {
         List<String> matchIds = getIntent().getStringArrayListExtra("matchIds");
         String puuid = getIntent().getStringExtra("puuid");
 
+
         if (summonerName == null || tagLine == null || matchIds == null || puuid == null) {
             Log.e(TAG, "Invalid data received.");
             finish();
@@ -55,6 +59,9 @@ public class ResultActivity extends AppCompatActivity {
 
         // 소환사 이름 설정
         setTitle(summonerName + "#" + tagLine);
+
+        tvSummonerName.setText(summonerName);
+        tvSummonerInfo.setText(tagLine);
 
         // 매치 데이터 가져오기
         fetchAllMatchData(matchIds, puuid);

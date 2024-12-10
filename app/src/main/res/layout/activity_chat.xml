@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_button"
         android:backgroundTint="#49454F"
-        android:backgroundTintMode="src_atop"
         android:text="Chat GPT에게 물어보기"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />

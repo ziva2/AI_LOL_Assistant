@@ -5,17 +5,19 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"> <!-- 전체 배경은 흰색 -->
 
-    <!-- 소환사 이름 -->
+
+
     <TextView
         android:id="@+id/tvSummonerName"
-        android:layout_width="match_parent"
+        android:layout_width="349dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="48dp"
         android:padding="8dp"
-        android:textStyle="bold"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <!-- 소환사 정보 -->
     <TextView
         android:id="@+id/tvSummonerInfo"
         android:layout_width="match_parent"
@@ -43,6 +45,5 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/icon"
         android:backgroundTint="#49454F"
-        android:backgroundTintMode="src_atop"
         android:contentDescription="Go to Chat" />
 </RelativeLayout>
