@@ -23,12 +23,18 @@
    [Riot Games Developer Portal](https://developer.riotgames.com)에 접속하여 Riot 계정으로 로그인한 뒤, API 키를 발급받아야 한다.  
    - **API 키 발급 절차**:
      1. Riot 계정으로 로그인하기
-     2. "My Developer Applications" 섹션에서 프로젝트를 생성하거나 기존 프로젝트를 선택하기.
+     2. "My Developer Applications" 섹션에서 프로젝트를 생성하거나 기존 프로젝트를 선택한다.
      3. "Development API Key"를 요청하여 발급받기.
    - 발급받은 키는 테스트 및 개발 용도로 사용되며, 일정 시간이 지나면 만료된다.  
      상업적 목적으로 사용할 경우 **Production API Key**를 별도로 신청해야 한다.  
    - API 키는 개인 정보와도 관련이 있으므로 외부에 유출되지 않도록 주의해야 한다.
-   
+
+라이엇 API 무료 키는 24시간 후면 만료되는 키다.
+![api 발급 받기](photo/https://github.com/ziva2/LoLBook/blob/main/photo/스크린샷%202024-12-11%20오후%2010.10.16.png)
+
+
+
+
 
 ##
 
