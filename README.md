@@ -44,15 +44,17 @@ app/src/main/java/com/example/ai_lol_assistant/network/RiotApiClient.java에 위
 ## 🎮 LoLBook (롤북)을 실행하면?
 LoLBook(롤북)을 처음 실행하면 소환사명과 태그를 입력할 수 있는 검색 창이 표시된다. 전적을 확인하고 싶은 소환사의 이름과 태그를 입력해 검색해봅시다.
 
-<img src="./photo/1.png" alt="실행 화면" width="250">
-<img src="./photo/2.png" alt="실행 화면" width="250">
+<div style="text-align: center;">
+<img src="./photo/1.png" alt="실행 화면" width="250"> <img src="./photo/2.png" alt="실행 화면" width="250">
+</div>
 
 ### 🔎 검색하기
 
 소환사 이름을 검색한 후, 아래와 같은 화면이 표시된다. 경기 결과는 승리 시 파란색, 패배 시 빨간색으로 구분되어 나타난다.
 
-<img src="./photo/2-1.png" alt="실행 화면" width="250">
-<img src="./photo/2-2.png" alt="실행 화면" width="250">
+<div style="text-align: center;">
+<img src="./photo/2-1.png" alt="실행 화면" width="250"> <img src="./photo/2-2.png" alt="실행 화면" width="250">
+</div>
 
 ### 🔎 더보기
 
@@ -66,15 +68,16 @@ LoLBook(롤북)을 처음 실행하면 소환사명과 태그를 입력할 수 �
 
 특히, 해당 항목에서 1등을 차지하면 축하 메시지가 표시된다. 이를 통해 자신의 경기 기여도를 한눈에 확인할 수 있다.
 
-<img src="./photo/2-3.png" alt="실행 화면" width="250">
-<img src="./photo/2-5.png" alt="실행 화면" width="250">
-<img src="./photo/2-4.png" alt="실행 화면" width="250">
+<div style="text-align: center;">
+<img src="./photo/2-3.png" alt="실행 화면" width="250"> <img src="./photo/2-5.png" alt="실행 화면" width="250"> <img src="./photo/2-4.png" alt="실행 화면" width="250">
+</div>
 
 ## 🎮 마무리
 #### 실제 앱을 실행해보면서 소환사의 전적을 확인해봅시다!
 
-<img src="./photo/main3.png" alt="실행 화면" width="250">
-<img src="./photo/4-1.png" alt="실행 화면" width="250">
+<div style="text-align: center;">
+<img src="./photo/main3.png" alt="실행 화면" width="250"> <img src="./photo/4-1.png" alt="실행 화면" width="250">
+</div>
 
 ## ❤️ 도움 받았어요!
 reference)ChatGPT
