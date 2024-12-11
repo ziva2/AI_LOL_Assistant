@@ -76,6 +76,16 @@
             android:textColor="#555555"
             android:padding="4dp" />
 
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1,2"
+            android:background="#EFEFEF"
+            android:padding="8dp">
+        </TableLayout>
+
+
         <!-- 그래프 (Placeholder) -->
         <View
             android:id="@+id/graphPlaceholder"

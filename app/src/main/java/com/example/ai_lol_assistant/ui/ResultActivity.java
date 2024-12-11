@@ -37,7 +37,6 @@ public class ResultActivity extends AppCompatActivity {
 
         // UI 요소 초기화
         RecyclerView rvMatchHistory = findViewById(R.id.rvMatchHistory);
-        Button btnChat = findViewById(R.id.btnChat);
         TextView tvSummonerName = findViewById(R.id.tvSummonerName);
         TextView tvSummonerInfo = findViewById(R.id.tvSummonerInfo);
 
@@ -65,12 +64,6 @@ public class ResultActivity extends AppCompatActivity {
 
         // 매치 데이터 가져오기
         fetchAllMatchData(matchIds, puuid);
-
-        // 채팅 버튼 클릭 시 ChatActivity로 이동
-        btnChat.setOnClickListener(v -> {
-            Intent intent = new Intent(ResultActivity.this, ChatActivity.class);
-            startActivity(intent);
-        });
 
         // RecyclerView 설정
         rvMatchHistory.setLayoutManager(new LinearLayoutManager(this));
