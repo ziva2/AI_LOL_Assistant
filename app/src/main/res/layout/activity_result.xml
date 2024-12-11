@@ -34,4 +34,16 @@
         android:layout_below="@id/tvSummonerInfo"
         android:layout_marginTop="16dp" />
 
+    <!-- 추가 버튼 -->
+    <Button
+        android:id="@+id/btnChat"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/icon"
+        android:backgroundTint="#49454F"
+        android:contentDescription="Go to Chat" />
 </RelativeLayout>
