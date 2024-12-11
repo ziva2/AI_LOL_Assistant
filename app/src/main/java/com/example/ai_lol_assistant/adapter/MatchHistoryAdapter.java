@@ -1,6 +1,8 @@
 package com.example.ai_lol_assistant.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +49,9 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         holder.tvChampion.setText(participant.getChampionName());
         holder.tvKDA.setText(String.format("%d/%d/%d", participant.getKills(), participant.getDeaths(), participant.getAssists()));
         holder.tvWinLose.setText(participant.isWin() ? "승리" : "패배");
+
+        // Set background color based on win/lose
+        holder.itemView.setBackgroundColor(participant.isWin() ? Color.parseColor("#deecff") : Color.parseColor("#ffdede"));
 
         holder.btnMore.setOnClickListener(v -> {
             if (holder.llDetails.getVisibility() == View.GONE) {
@@ -137,21 +142,21 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
             TextView myTeamInfo = new TextView(detailsLayout.getContext());
             myTeamInfo.setText(myParticipant.getChampionName());
-            myTeamInfo.setPadding(8, 4, 8, 4);
+            myTeamInfo.setPadding(10, 6, 10, 6);
             myTeamInfo.setTypeface(null, android.graphics.Typeface.BOLD);
 
             TextView myKDAInfo = new TextView(detailsLayout.getContext());
             myKDAInfo.setText(String.format("%d/%d/%d", myParticipant.getKills(), myParticipant.getDeaths(), myParticipant.getAssists()));
-            myKDAInfo.setPadding(8, 4, 8, 4);
+            myKDAInfo.setPadding(10, 6, 10, 6);
 
             TextView opponentTeamInfo = new TextView(detailsLayout.getContext());
             opponentTeamInfo.setText(opponentParticipant.getChampionName());
-            opponentTeamInfo.setPadding(8, 4, 8, 4);
+            opponentTeamInfo.setPadding(10, 6, 10, 6);
             opponentTeamInfo.setTypeface(null, android.graphics.Typeface.BOLD);
 
             TextView opponentKDAInfo = new TextView(detailsLayout.getContext());
             opponentKDAInfo.setText(String.format("%d/%d/%d", opponentParticipant.getKills(), opponentParticipant.getDeaths(), opponentParticipant.getAssists()));
-            opponentKDAInfo.setPadding(8, 4, 8, 4);
+            opponentKDAInfo.setPadding(10, 6, 10, 6);
 
             row.addView(myTeamInfo);
             row.addView(myKDAInfo);
