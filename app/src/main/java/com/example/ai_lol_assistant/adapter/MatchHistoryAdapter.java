@@ -17,6 +17,7 @@ import com.example.ai_lol_assistant.R;
 import com.example.ai_lol_assistant.model.MatchDto;
 import com.example.ai_lol_assistant.model.ParticipantDto;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         holder.btnMore.setOnClickListener(v -> {
             if (holder.llDetails.getVisibility() == View.GONE) {
                 holder.llDetails.setVisibility(View.VISIBLE);
-                displayMatchDetails(holder.llDetails, match);
+                displayMatchDetails(holder.llDetails, match, participant);
             } else {
                 holder.llDetails.setVisibility(View.GONE);
             }
@@ -86,18 +87,48 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         return match.getInfo().getParticipants().get(0);
     }
 
-    private void displayMatchDetails(LinearLayout detailsLayout, MatchDto match) {
+    private void displayMatchDetails(LinearLayout detailsLayout, MatchDto match, ParticipantDto currentPlayer) {
         detailsLayout.removeAllViews();
 
-        List<ParticipantDto> myTeam = match.getInfo().getParticipants().stream()
+        List<ParticipantDto> allParticipants = match.getInfo().getParticipants();
+        List<ParticipantDto> myTeam = allParticipants.stream()
                 .filter(p -> p.getTeamId() == 100)
                 .collect(Collectors.toList());
-
-        List<ParticipantDto> opponentTeam = match.getInfo().getParticipants().stream()
+        List<ParticipantDto> opponentTeam = allParticipants.stream()
                 .filter(p -> p.getTeamId() == 200)
                 .collect(Collectors.toList());
 
+        // Add table header
         TableLayout tableLayout = new TableLayout(detailsLayout.getContext());
+        TableRow headerRow = new TableRow(detailsLayout.getContext());
+
+        TextView headerMyTeam = new TextView(detailsLayout.getContext());
+        headerMyTeam.setText("아군");
+        headerMyTeam.setPadding(8, 4, 8, 4);
+        headerMyTeam.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        TextView headerKDA = new TextView(detailsLayout.getContext());
+        headerKDA.setText("K/D/A");
+        headerKDA.setPadding(8, 4, 8, 4);
+        headerKDA.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        TextView headerOpponentTeam = new TextView(detailsLayout.getContext());
+        headerOpponentTeam.setText("적군");
+        headerOpponentTeam.setPadding(8, 4, 8, 4);
+        headerOpponentTeam.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        TextView headerOpponentKDA = new TextView(detailsLayout.getContext());
+        headerOpponentKDA.setText("K/D/A");
+        headerOpponentKDA.setPadding(8, 4, 8, 4);
+        headerOpponentKDA.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        headerRow.addView(headerMyTeam);
+        headerRow.addView(headerKDA);
+        headerRow.addView(headerOpponentTeam);
+        headerRow.addView(headerOpponentKDA);
+        tableLayout.addView(headerRow);
+
+        // Add participant data
         for (int i = 0; i < myTeam.size(); i++) {
             ParticipantDto myParticipant = myTeam.get(i);
             ParticipantDto opponentParticipant = opponentTeam.get(i);
@@ -105,19 +136,75 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             TableRow row = new TableRow(detailsLayout.getContext());
 
             TextView myTeamInfo = new TextView(detailsLayout.getContext());
-            myTeamInfo.setText(formatParticipantInfo(myParticipant));
+            myTeamInfo.setText(myParticipant.getChampionName());
             myTeamInfo.setPadding(8, 4, 8, 4);
+            myTeamInfo.setTypeface(null, android.graphics.Typeface.BOLD);
+
+            TextView myKDAInfo = new TextView(detailsLayout.getContext());
+            myKDAInfo.setText(String.format("%d/%d/%d", myParticipant.getKills(), myParticipant.getDeaths(), myParticipant.getAssists()));
+            myKDAInfo.setPadding(8, 4, 8, 4);
 
             TextView opponentTeamInfo = new TextView(detailsLayout.getContext());
-            opponentTeamInfo.setText(formatParticipantInfo(opponentParticipant));
+            opponentTeamInfo.setText(opponentParticipant.getChampionName());
             opponentTeamInfo.setPadding(8, 4, 8, 4);
+            opponentTeamInfo.setTypeface(null, android.graphics.Typeface.BOLD);
+
+            TextView opponentKDAInfo = new TextView(detailsLayout.getContext());
+            opponentKDAInfo.setText(String.format("%d/%d/%d", opponentParticipant.getKills(), opponentParticipant.getDeaths(), opponentParticipant.getAssists()));
+            opponentKDAInfo.setPadding(8, 4, 8, 4);
 
             row.addView(myTeamInfo);
+            row.addView(myKDAInfo);
             row.addView(opponentTeamInfo);
+            row.addView(opponentKDAInfo);
             tableLayout.addView(row);
         }
+
+        // Add rank information
+        String damageRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalDamageDealt), currentPlayer.getTotalDamageDealt());
+        String goldRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getGoldEarned), currentPlayer.getGoldEarned());
+        String minionRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled), currentPlayer.getTotalMinionsKilled());
+
+        TextView rankInfo = new TextView(detailsLayout.getContext());
+        rankInfo.setText(String.format("딜량 순위: %s\n골드 획득 순위: %s\n미니언 순위: %s", damageRank, goldRank, minionRank));
+        rankInfo.setPadding(8, 16, 8, 16);
+
         detailsLayout.addView(tableLayout);
+        detailsLayout.addView(rankInfo);
     }
+
+    private String calculateRank(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
+        // 내림차순으로 정렬
+        List<ParticipantDto> sortedList = participants.stream()
+                .sorted(comparator.reversed())
+                .collect(Collectors.toList());
+
+        int rank = 1;
+        for (ParticipantDto participant : sortedList) {
+            // 현재 플레이어의 값과 비교
+            if (comparator.compare(participant, new ParticipantDto() {
+                @Override
+                public int getTotalDamageDealt() {
+                    return currentPlayerValue;
+                }
+
+                @Override
+                public int getGoldEarned() {
+                    return currentPlayerValue;
+                }
+
+                @Override
+                public int getTotalMinionsKilled() {
+                    return currentPlayerValue;
+                }
+            }) == 0) {
+                return rank == 1 ? "축하합니다! 1등입니다!" : rank + "등";
+            }
+            rank++;
+        }
+        return "순위를 계산할 수 없습니다.";
+    }
+
 
     private String formatParticipantInfo(ParticipantDto participant) {
         return participant.getChampionName() + " " +
