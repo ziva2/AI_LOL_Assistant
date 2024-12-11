@@ -108,22 +108,22 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         TableRow headerRow = new TableRow(detailsLayout.getContext());
 
         TextView headerMyTeam = new TextView(detailsLayout.getContext());
-        headerMyTeam.setText("아군");
+        headerMyTeam.setText("   아군");
         headerMyTeam.setPadding(8, 4, 8, 4);
         headerMyTeam.setTypeface(null, android.graphics.Typeface.BOLD);
 
         TextView headerKDA = new TextView(detailsLayout.getContext());
-        headerKDA.setText("K/D/A");
+        headerKDA.setText(" K/D/A");
         headerKDA.setPadding(8, 4, 8, 4);
         headerKDA.setTypeface(null, android.graphics.Typeface.BOLD);
 
         TextView headerOpponentTeam = new TextView(detailsLayout.getContext());
-        headerOpponentTeam.setText("적군");
+        headerOpponentTeam.setText("   적군");
         headerOpponentTeam.setPadding(8, 4, 8, 4);
         headerOpponentTeam.setTypeface(null, android.graphics.Typeface.BOLD);
 
         TextView headerOpponentKDA = new TextView(detailsLayout.getContext());
-        headerOpponentKDA.setText("K/D/A");
+        headerOpponentKDA.setText(" K/D/A");
         headerOpponentKDA.setPadding(8, 4, 8, 4);
         headerOpponentKDA.setTypeface(null, android.graphics.Typeface.BOLD);
 
@@ -142,21 +142,21 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
             TextView myTeamInfo = new TextView(detailsLayout.getContext());
             myTeamInfo.setText(myParticipant.getChampionName());
-            myTeamInfo.setPadding(10, 6, 10, 6);
+            myTeamInfo.setPadding(20, 15, 20, 15);
             myTeamInfo.setTypeface(null, android.graphics.Typeface.BOLD);
 
             TextView myKDAInfo = new TextView(detailsLayout.getContext());
             myKDAInfo.setText(String.format("%d/%d/%d", myParticipant.getKills(), myParticipant.getDeaths(), myParticipant.getAssists()));
-            myKDAInfo.setPadding(10, 6, 10, 6);
+            myKDAInfo.setPadding(20, 15, 20, 15);
 
             TextView opponentTeamInfo = new TextView(detailsLayout.getContext());
             opponentTeamInfo.setText(opponentParticipant.getChampionName());
-            opponentTeamInfo.setPadding(10, 6, 10, 6);
+            opponentTeamInfo.setPadding(20, 15, 20, 15);
             opponentTeamInfo.setTypeface(null, android.graphics.Typeface.BOLD);
 
             TextView opponentKDAInfo = new TextView(detailsLayout.getContext());
             opponentKDAInfo.setText(String.format("%d/%d/%d", opponentParticipant.getKills(), opponentParticipant.getDeaths(), opponentParticipant.getAssists()));
-            opponentKDAInfo.setPadding(10, 6, 10, 6);
+            opponentKDAInfo.setPadding(20, 15, 20, 15);
 
             row.addView(myTeamInfo);
             row.addView(myKDAInfo);
