@@ -3,6 +3,7 @@ package com.example.ai_lol_assistant.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +99,26 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         return match.getInfo().getParticipants().get(0);
     }
 
+    // 수정된 부분: 라벨을 굵게 설정하는 메서드
+    private void addBoldLabelTextView(LinearLayout parent, String label, String value) {
+        LinearLayout container = new LinearLayout(parent.getContext());
+        container.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView labelView = new TextView(parent.getContext());
+        labelView.setText(label);
+        labelView.setTypeface(null, Typeface.BOLD); // 라벨을 굵게 설정
+        labelView.setPadding(8, 4, 8, 4);
+
+        TextView valueView = new TextView(parent.getContext());
+        valueView.setText(value);
+        valueView.setPadding(8, 4, 8, 4);
+
+        container.addView(labelView);
+        container.addView(valueView);
+
+        parent.addView(container);
+    }
+
     private void displayMatchDetails(LinearLayout detailsLayout, MatchDto match, ParticipantDto currentPlayer) {
         detailsLayout.removeAllViews();
 
@@ -107,12 +128,6 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         gameModeView.setTypeface(null, Typeface.BOLD);
         gameModeView.setPadding(8, 8, 8, 8);
         detailsLayout.addView(gameModeView);
-
-        // 수정된 부분: 얇은 구분선 추가
-        View thinLine = new View(detailsLayout.getContext());
-        thinLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-        thinLine.setBackgroundColor(Color.LTGRAY);
-        detailsLayout.addView(thinLine);
 
         List<ParticipantDto> allParticipants = match.getInfo().getParticipants();
         List<ParticipantDto> myTeam = allParticipants.stream()
@@ -184,17 +199,45 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             tableLayout.addView(row);
         }
 
+        /// 플레이 분석 섹션
+        LinearLayout playAnalysisSection = new LinearLayout(detailsLayout.getContext());
+        playAnalysisSection.setOrientation(LinearLayout.VERTICAL);
+
+        // 수정된 부분: 모서리 곡률을 추가한 GradientDrawable 생성
+        GradientDrawable roundedBackground = new GradientDrawable();
+        roundedBackground.setColor(Color.parseColor("#f6f2f7")); // 배경색
+        roundedBackground.setCornerRadius(25f); // 모서리 반경 설정 (16dp)
+
+        // 섹션에 적용
+        playAnalysisSection.setBackground(roundedBackground);
+        playAnalysisSection.setPadding(12, 12, 12, 12);
+
+
+        // 플레이 분석 타이틀
+        View thinLine2 = new View(detailsLayout.getContext());
+        thinLine2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+        thinLine2.setBackgroundColor(Color.LTGRAY);
+        playAnalysisSection.addView(thinLine2);
+
+        TextView playAnalysisTitle = new TextView(detailsLayout.getContext());
+        playAnalysisTitle.setText("플레이 분석");
+        playAnalysisTitle.setTypeface(null, Typeface.BOLD);
+        playAnalysisTitle.setGravity(android.view.Gravity.CENTER);
+        playAnalysisTitle.setPadding(0, 8, 0, 8);
+        playAnalysisSection.addView(playAnalysisTitle);
+
         // Add rank information
         String damageRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalDamageDealt), currentPlayer.getTotalDamageDealt());
         String goldRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getGoldEarned), currentPlayer.getGoldEarned());
         String minionRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled), currentPlayer.getTotalMinionsKilled());
 
-        TextView rankInfo = new TextView(detailsLayout.getContext());
-        rankInfo.setText(String.format("딜량 순위: %s\n골드 획득 순위: %s\n미니언 처치 순위: %s", damageRank, goldRank, minionRank));
-        rankInfo.setPadding(8, 16, 8, 16);
+        addBoldLabelTextView(playAnalysisSection, "딜량 순위: ", damageRank);
+        addBoldLabelTextView(playAnalysisSection, "골드 획득 순위: ", goldRank);
+        addBoldLabelTextView(playAnalysisSection, "미니언 처치 순위: ", minionRank);
 
+
+        detailsLayout.addView(playAnalysisSection);
         detailsLayout.addView(tableLayout);
-        detailsLayout.addView(rankInfo);
     }
 
     private String calculateRank(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
