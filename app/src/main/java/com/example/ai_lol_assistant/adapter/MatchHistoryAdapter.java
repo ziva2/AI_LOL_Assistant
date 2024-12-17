@@ -367,7 +367,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
     // 추가할 부분: 추가 분석 섹션 생성
     private void createAdditionalAnalysisSection(LinearLayout detailsLayout, List<ParticipantDto> allParticipants, ParticipantDto currentPlayer) {
         boolean hasContent = false;
-        LinearLayout additionalAnalysisSection = createSectionLayout(detailsLayout, "추가 분석!");
+        LinearLayout additionalAnalysisSection = createSectionLayout(detailsLayout, "이번 전투에서 나는?");
 
 
         // 나의 전투 기여도
@@ -378,16 +378,16 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         String saveAlly = formatValue(challengesDto.getSaveAllyFromDeath(), "아군을 죽음에서 N번 구함"); // saveAllyFromDeath
 
         // 나의 캐리력
-        String soloTurrets = formatRankAndValue(allParticipants, Comparator.comparingInt(p -> p.getChallenges().getSoloTurretsLategame()), currentPlayer.getChallenges().getSoloTurretsLategame(), "혼자 파괴한 포탑 수: N (팀 중 n등)");
-        String outnumberedKills = formatRankAndValue(allParticipants, Comparator.comparingInt(p -> p.getChallenges().getOutnumberedKills()), currentPlayer.getChallenges().getOutnumberedKills(), "내가 열세 상황일 때 나는 N 킬을 성공");
+        String soloTurrets = formatValue( challengesDto.getSoloTurretsLategame(), "혼자 파괴한 포탑 수: N"); //getSoloTurretsLategame()
+        String outnumberedKills = formatValue(challengesDto.getOutnumberedKills(), "내가 열세 상황일 때 나는 N 킬을 성공"); //getOutnumberedKills()
 
         // 라인전 능력
-        String turretKills = formatRankAndValue(allParticipants, Comparator.comparingInt(ParticipantDto::getTurretKills), currentPlayer.getTurretKills(), "파괴한 포탑 수는 N개");
-        String laningAdvantage = formatPercentage(currentPlayer.getChallenges().getLaningPhaseGoldExpAdvantage(), "라인전 골드/경험치 우위 N%");
+        String turretKills = formatValue(currentPlayer.getTurretKills(), "파괴한 포탑 수는 N개");
+        String laningAdvantage = formatPercentage(challengesDto.getLaningPhaseGoldExpAdvantage(), "라인전 골드/경험치 우위 N%"); //getLaningPhaseGoldExpAdvantage()
 
         // 나의 생존력
-        String longestLiving = formatRankAndValue(allParticipants, Comparator.comparingInt(ParticipantDto::getLongestTimeSpentLiving), currentPlayer.getLongestTimeSpentLiving(), "죽지 않고 생존한 시간: N초");
-        String skillshotsDodged = formatRankAndValue(allParticipants, Comparator.comparingInt(p -> p.getChallenges().getSkillshotsDodged()), currentPlayer.getChallenges().getSkillshotsDodged(), "피한 스킬샷: N번");
+        String longestLiving = formatValue(currentPlayer.getLongestTimeSpentLiving(), "죽지 않고 생존한 시간: N초"); //getLongestTimeSpentLiving()
+        String skillshotsDodged = formatValue(challengesDto.getSkillshotsDodged(), "피한 스킬샷: N번"); // skillshotsDodged
 
         // 각 항목 추가
         hasContent |= addAnalysisLine(additionalAnalysisSection, largestKillingSpree);
