@@ -138,8 +138,17 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
                 .collect(Collectors.toList());
 
         // Add table header
+        // Add table header
         TableLayout tableLayout = new TableLayout(detailsLayout.getContext());
         TableRow headerRow = new TableRow(detailsLayout.getContext());
+
+        // 수정된 부분: 헤더 배경에 투명도 추가
+        GradientDrawable headerBackground = new GradientDrawable();
+        headerBackground.setColor(Color.parseColor("#f6f2f7")); // #F2 = 95% 투명도
+        headerBackground.setCornerRadius(25f); // 모서리 반경 설정
+
+        headerRow.setBackground(headerBackground);
+        headerRow.setPadding(8, 8, 8, 8);
 
         TextView headerMyTeam = new TextView(detailsLayout.getContext());
         headerMyTeam.setText("   아군");
@@ -174,6 +183,13 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
             TableRow row = new TableRow(detailsLayout.getContext());
 
+            // 수정된 부분: GradientDrawable에 투명도 추가
+            GradientDrawable rowBackground = new GradientDrawable();
+            rowBackground.setColor(Color.parseColor("#80f6f2f7")); //80 = 50%
+            rowBackground.setCornerRadius(25f); // 모서리 반경 설정
+
+            row.setBackground(rowBackground); // 테마 적용
+
             TextView myTeamInfo = new TextView(detailsLayout.getContext());
             myTeamInfo.setText(myParticipant.getChampionName());
             myTeamInfo.setPadding(20, 15, 20, 15);
@@ -199,7 +215,8 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             tableLayout.addView(row);
         }
 
-        /// 플레이 분석 섹션
+
+        // 플레이 분석 섹션
         LinearLayout playAnalysisSection = new LinearLayout(detailsLayout.getContext());
         playAnalysisSection.setOrientation(LinearLayout.VERTICAL);
 
@@ -213,18 +230,18 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         playAnalysisSection.setPadding(12, 12, 12, 12);
 
 
-        // 플레이 분석 타이틀
-        View thinLine2 = new View(detailsLayout.getContext());
-        thinLine2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-        thinLine2.setBackgroundColor(Color.LTGRAY);
-        playAnalysisSection.addView(thinLine2);
-
         TextView playAnalysisTitle = new TextView(detailsLayout.getContext());
-        playAnalysisTitle.setText("플레이 분석");
+        playAnalysisTitle.setText("소환사님의 플레이 분석");
         playAnalysisTitle.setTypeface(null, Typeface.BOLD);
         playAnalysisTitle.setGravity(android.view.Gravity.CENTER);
         playAnalysisTitle.setPadding(0, 8, 0, 8);
         playAnalysisSection.addView(playAnalysisTitle);
+
+        // 플레이 분석 타이틀
+        View thinLine = new View(detailsLayout.getContext());
+        thinLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+        thinLine.setBackgroundColor(Color.LTGRAY);
+        playAnalysisSection.addView(thinLine);
 
         // Add rank information
         String damageRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalDamageDealt), currentPlayer.getTotalDamageDealt());
@@ -235,9 +252,17 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         addBoldLabelTextView(playAnalysisSection, "골드 획득 순위: ", goldRank);
         addBoldLabelTextView(playAnalysisSection, "미니언 처치 순위: ", minionRank);
 
+        // Add a transparent spacer before "플레이 분석 섹션"
+        View spacer = new View(detailsLayout.getContext());
+        spacer.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 32)); // 32px 또는 원하는 높이 설정
+        spacer.setBackgroundColor(Color.TRANSPARENT); // 투명 배경
 
-        detailsLayout.addView(playAnalysisSection);
-        detailsLayout.addView(tableLayout);
+        detailsLayout.addView(tableLayout); // 적군/아군 정보
+        detailsLayout.addView(spacer);      // 빈 공간 추가
+        detailsLayout.addView(playAnalysisSection); // 플레이 분석 섹션
+
+
     }
 
     private String calculateRank(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
