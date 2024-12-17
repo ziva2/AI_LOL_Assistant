@@ -383,7 +383,6 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
         // 라인전 능력
         String turretKills = formatValue(currentPlayer.getTurretKills(), "파괴한 포탑 수는 N개");
-        String laningAdvantage = formatPercentage(challengesDto.getLaningPhaseGoldExpAdvantage(), "라인전 골드/경험치 우위 N%"); //getLaningPhaseGoldExpAdvantage()
 
         // 나의 생존력
         String longestLiving = formatValue(currentPlayer.getLongestTimeSpentLiving(), "죽지 않고 생존한 시간: N초"); //getLongestTimeSpentLiving()
@@ -400,7 +399,6 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         hasContent |= addAnalysisLine(additionalAnalysisSection, outnumberedKills);
 
         hasContent |= addAnalysisLine(additionalAnalysisSection, turretKills);
-        hasContent |= addAnalysisLine(additionalAnalysisSection, laningAdvantage);
 
         hasContent |= addAnalysisLine(additionalAnalysisSection, longestLiving);
         hasContent |= addAnalysisLine(additionalAnalysisSection, skillshotsDodged);

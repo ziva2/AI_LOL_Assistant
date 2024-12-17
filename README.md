@@ -1,9 +1,9 @@
-# 🖋️ LoLBook (롤북)
+# 🖋️ LBook (롤북)
 **Java Sdk Version** : minSdk = 24, targetSdk = 34
 
 **실행 환경** : Pixel 4 API 35
 ## ✨ 어플 소개
-안드로이드 스튜디오로 개발된 **LoLBook**은 리그 오브 레전드 플레이어가 자신의 전적을 손쉽게 확인할 수 있는 모바일 애플리케이션이다.
+안드로이드 스튜디오로 개발된 **LBook**은 리그 오브 레전드 플레이어가 자신의 전적을 손쉽게 확인할 수 있는 모바일 애플리케이션이다.
 ## 🎮 리그 오브 레전드?
 
 리그 오브 레전드(League of Legends, LoL)는 미국의 라이엇 게임즈(Riot Games)가 개발한 멀티플레이어 온라인 배틀 아레나(MOBA) 장르의 게임이다. 2009년에 출시된 이후 세계적으로 높은 인기를 끌며 현재까지도 꾸준히 플레이어층을 유지하고 있는 대표적인 e스포츠 게임이다.
@@ -70,7 +70,7 @@ LoLBook(롤북)을 처음 실행하면 소환사명과 태그를 입력할 수 �
 특히, 해당 항목에서 1등을 차지하면 축하 메시지가 표시된다. 이를 통해 자신의 경기 기여도를 한눈에 확인할 수 있다.
 
 <div style="text-align: center;">
-<img src="./photo/2-8.png" alt="실행 화면" width="250"> <img src="./photo/2-6.png" alt="실행 화면" width="250"> <img src="./photo/2-7.png" alt="실행 화면" width="250"> 
+<img src="./photo/3-10.png" alt="실행 화면" width="250"> <img src="./photo/2-6.png" alt="실행 화면" width="250"> <img src="./photo/2-7.png" alt="실행 화면" width="250"> 
 </div>
 
 ## 🎮 마무리
