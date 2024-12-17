@@ -72,24 +72,17 @@
     </RelativeLayout>
 
     <!-- 검색 버튼 -->
-    <RelativeLayout
-        android:id="@+id/modern_medi"
+    <android.widget.Button
+        android:id="@+id/btnSearch"
         android:layout_width="147dp"
-        android:layout_height="60dp"
+        android:layout_height="47dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/search_bar_tagline"
         android:layout_marginTop="32dp"
-        android:background="@drawable/btn_search_selector"
-        android:clipToOutline="true">
-
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:elevation="4dp"
-            android:padding="8dp"
-            android:text="" />
-    </RelativeLayout>
-
+        android:backgroundTint="#49454F"
+        android:background="@drawable/bg_button"
+        android:text="SEARCH"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16dp" />
 </RelativeLayout>

@@ -7,6 +7,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -55,11 +57,17 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         // Set background color based on win/lose
         holder.itemView.setBackgroundColor(participant.isWin() ? Color.parseColor("#deecff") : Color.parseColor("#ffdede"));
 
-        // 수정된 부분: 게임 모드 추가 표시
+        // 게임 모드 표시
         holder.tvGameMode.setText(match.getInfo().getGameMode());
         holder.tvGameMode.setTypeface(null, Typeface.BOLD);
 
+        // 버튼 클릭 시 애니메이션 적용
         holder.btnMore.setOnClickListener(v -> {
+            // 애니메이션 로드 및 실행
+            Animation scaleAnimation = AnimationUtils.loadAnimation(context, R.anim.click_scale);
+            holder.btnMore.startAnimation(scaleAnimation);
+
+            // 상세 정보 토글
             if (holder.llDetails.getVisibility() == View.GONE) {
                 holder.llDetails.setVisibility(View.VISIBLE);
                 displayMatchDetails(holder.llDetails, match, participant);
@@ -68,6 +76,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

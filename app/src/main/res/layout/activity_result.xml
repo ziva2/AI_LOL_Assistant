@@ -1,37 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"> <!-- 전체 배경은 흰색 -->
 
-
-
-    <TextView
-        android:id="@+id/tvSummonerName"
-        android:layout_width="349dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="55dp"
-        android:padding="8dp"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvSummonerInfo"
+    <!-- 소환사 정보 컨테이너 -->
+    <LinearLayout
+        android:id="@+id/llSummonerInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textColor="#333333"
-        android:layout_below="@id/tvSummonerName" />
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@drawable/rounded_background">
+
+        <TextView
+            android:id="@+id/tvSummonerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvSummonerInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="8dp" />
+
+        <!-- 소환사 플레이 분석 문구 -->
+        <TextView
+            android:id="@+id/tvSummonerAnalysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="소환사님의 플레이를 확인하세요!"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
     <!-- RecyclerView for match data -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMatchHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvSummonerInfo"
+        android:layout_below="@id/llSummonerInfoContainer"
         android:layout_marginTop="16dp" />
 
 </RelativeLayout>
