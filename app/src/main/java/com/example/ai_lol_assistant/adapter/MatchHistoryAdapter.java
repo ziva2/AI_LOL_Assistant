@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ai_lol_assistant.R;
 import com.example.ai_lol_assistant.model.MatchDto;
 import com.example.ai_lol_assistant.model.ParticipantDto;
+import com.example.ai_lol_assistant.model.InfoDto;
 
 import java.util.Comparator;
 import java.util.List;
@@ -53,6 +54,10 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         // Set background color based on win/lose
         holder.itemView.setBackgroundColor(participant.isWin() ? Color.parseColor("#deecff") : Color.parseColor("#ffdede"));
 
+        // 수정된 부분: 게임 모드 추가 표시
+        holder.tvGameMode.setText(match.getInfo().getGameMode());
+        holder.tvGameMode.setTypeface(null, Typeface.BOLD);
+
         holder.btnMore.setOnClickListener(v -> {
             if (holder.llDetails.getVisibility() == View.GONE) {
                 holder.llDetails.setVisibility(View.VISIBLE);
@@ -69,7 +74,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvChampion, tvKDA, tvWinLose;
+        TextView tvChampion, tvKDA, tvWinLose, tvGameMode;;
         Button btnMore;
         LinearLayout llDetails;
 
@@ -80,6 +85,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
             tvWinLose = itemView.findViewById(R.id.tvWinLose);
             btnMore = itemView.findViewById(R.id.btnMore);
             llDetails = itemView.findViewById(R.id.llDetails);
+            tvGameMode = itemView.findViewById(R.id.tvGameMode);
         }
     }
 
@@ -94,6 +100,19 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
     private void displayMatchDetails(LinearLayout detailsLayout, MatchDto match, ParticipantDto currentPlayer) {
         detailsLayout.removeAllViews();
+
+        // 수정된 부분: 게임 모드 표시
+        TextView gameModeView = new TextView(detailsLayout.getContext());
+        gameModeView.setText("게임 모드: " + match.getInfo().getGameMode());
+        gameModeView.setTypeface(null, Typeface.BOLD);
+        gameModeView.setPadding(8, 8, 8, 8);
+        detailsLayout.addView(gameModeView);
+
+        // 수정된 부분: 얇은 구분선 추가
+        View thinLine = new View(detailsLayout.getContext());
+        thinLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+        thinLine.setBackgroundColor(Color.LTGRAY);
+        detailsLayout.addView(thinLine);
 
         List<ParticipantDto> allParticipants = match.getInfo().getParticipants();
         List<ParticipantDto> myTeam = allParticipants.stream()
@@ -171,7 +190,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         String minionRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled), currentPlayer.getTotalMinionsKilled());
 
         TextView rankInfo = new TextView(detailsLayout.getContext());
-        rankInfo.setText(String.format("딜량 순위: %s\n골드 획득 순위: %s\n미니언 순위: %s", damageRank, goldRank, minionRank));
+        rankInfo.setText(String.format("딜량 순위: %s\n골드 획득 순위: %s\n미니언 처치 순위: %s", damageRank, goldRank, minionRank));
         rankInfo.setPadding(8, 16, 8, 16);
 
         detailsLayout.addView(tableLayout);
