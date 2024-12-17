@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Linear Gradient 적용 -->
+    <gradient
+        android:type="linear"
+        android:startColor= "#6e6c70"
+        android:centerColor="#5A5761"
+        android:endColor="#49454F"
+        android:angle="270" />
+
+    <!-- 모서리 둥글게 설정 -->
+    <corners android:radius="20dp" />
+</shape>
