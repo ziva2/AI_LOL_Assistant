@@ -9,7 +9,6 @@
     android:layout_marginBottom="8dp"
     android:clipToOutline="true">
 
-
     <!-- 상단 요약 정보 -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,49 +59,58 @@
     </LinearLayout>
 
     <!-- 세부 정보 (기본으로 숨김 처리) -->
-    <LinearLayout
-        android:id="@+id/llDetails"
+    <ScrollView
+        android:id="@+id/scrollViewDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:visibility="gone"
-        android:padding="8dp">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tvGameMode"
+
+    <LinearLayout
+            android:id="@+id/llDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="#000000"
-            android:paddingBottom="8dp" /> <!-- 수정된 부분 -->
-
-        <!-- 얇은 선 추가 -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC"
-            android:layout_marginBottom="8dp" /> <!-- 수정된 부분 -->
-
-
-        <!-- 팀 정보 -->
-        <TextView
-            android:id="@+id/tvTeamInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="#555555"
-            android:padding="4dp" />
-
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1,2"
-            android:background="#EFEFEF"
+            android:orientation="vertical"
             android:padding="8dp">
-        </TableLayout>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvGameMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:paddingBottom="8dp" />
+
+            <!-- 얇은 선 추가 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginBottom="8dp" />
+
+            <!-- 팀 정보 -->
+            <TextView
+                android:id="@+id/tvTeamInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#555555"
+                android:padding="4dp" />
+
+            <!-- 팀 데이터 테이블 -->
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1,2"
+                android:background="#EFEFEF"
+                android:padding="8dp">
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

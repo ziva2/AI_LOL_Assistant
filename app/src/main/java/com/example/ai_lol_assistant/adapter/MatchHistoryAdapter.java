@@ -21,16 +21,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ai_lol_assistant.R;
 import com.example.ai_lol_assistant.model.MatchDto;
 import com.example.ai_lol_assistant.model.ParticipantDto;
+import com.example.ai_lol_assistant.model.ChallengesDto;
 import com.example.ai_lol_assistant.model.InfoDto;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import android.util.Log;
 
 public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapter.ViewHolder> {
     private final Context context;
     private final List<MatchDto> matchList;
     private final String puuid;
+
+    private ChallengesDto challengesDto;
 
     public MatchHistoryAdapter(Context context, List<MatchDto> matchList, String puuid) {
         this.context = context;
@@ -49,6 +53,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MatchDto match = matchList.get(position);
         ParticipantDto participant = getPlayerFromMatch(match);
+        challengesDto = participant.getChallenges();
 
         holder.tvChampion.setText(participant.getChampionName());
         holder.tvKDA.setText(String.format("%d/%d/%d", participant.getKills(), participant.getDeaths(), participant.getAssists()));
@@ -61,18 +66,43 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         holder.tvGameMode.setText(match.getInfo().getGameMode());
         holder.tvGameMode.setTypeface(null, Typeface.BOLD);
 
-        // 버튼 클릭 시 애니메이션 적용
+        // 로그 출력: 필드 값 확인
+        Log.d("MatchHistoryAdapter", "---------- 디버깅 정보 ----------");
+        Log.d("MatchHistoryAdapter", "ChampionName: " + participant.getChampionName());
+        Log.d("MatchHistoryAdapter", "Kills/Deaths/Assists: " + participant.getKills() + "/" + participant.getDeaths() + "/" + participant.getAssists());
+        Log.d("MatchHistoryAdapter", "Largest Killing Spree: " + participant.getLargestKillingSpree());
+        Log.d("MatchHistoryAdapter", "Objectives Stolen: " + participant.getObjectivesStolen());
+        Log.d("MatchHistoryAdapter", "Total Damage Taken: " + participant.getTotalDamageTaken());
+        Log.d("MatchHistoryAdapter", "Total Heal: " + participant.getTotalHeal());
+        Log.d("MatchHistoryAdapter", "Turret Kills: " + participant.getTurretKills());
+        Log.d("MatchHistoryAdapter", "Longest Time Spent Living: " + participant.getLongestTimeSpentLiving());
+
+        // ChallengesDto 필드 확인
+        if (challengesDto != null) {
+            Log.d("MatchHistoryAdapter", "Kill After Hidden With Ally: " + challengesDto.getKillAfterHiddenWithAlly());
+            Log.d("MatchHistoryAdapter", "Damage Taken on Team Percentage: " + challengesDto.getDamageTakenOnTeamPercentage());
+            Log.d("MatchHistoryAdapter", "Save Ally From Death: " + challengesDto.getSaveAllyFromDeath());
+            Log.d("MatchHistoryAdapter", "Solo Turrets Late Game: " + challengesDto.getSoloTurretsLategame());
+            Log.d("MatchHistoryAdapter", "Outnumbered Kills: " + challengesDto.getOutnumberedKills());
+            Log.d("MatchHistoryAdapter", "Laning Phase Gold/Exp Advantage: " + challengesDto.getLaningPhaseGoldExpAdvantage());
+            Log.d("MatchHistoryAdapter", "Skillshots Dodged: " + challengesDto.getSkillshotsDodged());
+        } else {
+            Log.d("MatchHistoryAdapter", "ChallengesDto is NULL");
+        }
+
         holder.btnMore.setOnClickListener(v -> {
+
             // 애니메이션 로드 및 실행
             Animation scaleAnimation = AnimationUtils.loadAnimation(context, R.anim.click_scale);
             holder.btnMore.startAnimation(scaleAnimation);
 
-            // 상세 정보 토글
-            if (holder.llDetails.getVisibility() == View.GONE) {
-                holder.llDetails.setVisibility(View.VISIBLE);
-                displayMatchDetails(holder.llDetails, match, participant);
+            if (holder.scrollViewDetails.getVisibility() == View.GONE) {
+                holder.scrollViewDetails.setVisibility(View.VISIBLE); // ScrollView 보이기
+                displayMatchDetails(holder.llDetails, match, participant); // 세부 내용 추가
+                holder.btnMore.setText("닫기");
             } else {
-                holder.llDetails.setVisibility(View.GONE);
+                holder.scrollViewDetails.setVisibility(View.GONE); // ScrollView 숨기기
+                holder.btnMore.setText("더보기");
             }
         });
     }
@@ -84,20 +114,25 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvChampion, tvKDA, tvWinLose, tvGameMode;;
+        TextView tvChampion, tvKDA, tvWinLose, tvGameMode;
         Button btnMore;
         LinearLayout llDetails;
+        android.widget.ScrollView scrollViewDetails;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvChampion = itemView.findViewById(R.id.tvChampion);
             tvKDA = itemView.findViewById(R.id.tvKDA);
             tvWinLose = itemView.findViewById(R.id.tvWinLose);
-            btnMore = itemView.findViewById(R.id.btnMore);
-            llDetails = itemView.findViewById(R.id.llDetails);
             tvGameMode = itemView.findViewById(R.id.tvGameMode);
+            btnMore = itemView.findViewById(R.id.btnMore);
+
+            // ScrollView와 세부 레이아웃 참조
+            scrollViewDetails = itemView.findViewById(R.id.scrollViewDetails);
+            llDetails = itemView.findViewById(R.id.llDetails);
         }
     }
+
 
     private ParticipantDto getPlayerFromMatch(MatchDto match) {
         for (ParticipantDto player : match.getInfo().getParticipants()) {
@@ -128,6 +163,62 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         parent.addView(container);
     }
 
+    // 유틸 메서드: 값과 순위를 포맷팅
+    private String formatValue(int value, String message) {
+        return value > 0 ? message.replace("N", String.valueOf(value)) : null;
+    }
+
+    private String formatPercentage(double value, String message) {
+        return value > 0 ? message.replace("N", String.format("%.1f", value * 100)) : null;
+    }
+
+    private String formatRankAndValue(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int value, String message) {
+        if (value > 0) {
+            int rank = calculateRank(participants, comparator, value);
+            if (rank != -1) {
+                return message.replace("N", String.valueOf(value)).replace("n등", rank + "등");
+            }
+        }
+        return null;
+    }
+
+    // 유틸 메서드: 분석 라인 추가
+    private boolean addAnalysisLine(LinearLayout section, String text) {
+        if (text != null) {
+            TextView textView = new TextView(section.getContext());
+            textView.setText(text);
+            textView.setPadding(8, 4, 8, 4);
+            section.addView(textView);
+            return true;
+        }
+        return false;
+    }
+
+    // 섹션 레이아웃 생성
+    private LinearLayout createSectionLayout(ViewGroup parent, String title) {
+        LinearLayout sectionLayout = new LinearLayout(parent.getContext());
+        sectionLayout.setOrientation(LinearLayout.VERTICAL);
+        sectionLayout.setPadding(12, 12, 12, 12);
+        sectionLayout.setBackground(createRoundedBackground());
+
+        TextView sectionTitle = new TextView(parent.getContext());
+        sectionTitle.setText(title);
+        sectionTitle.setTypeface(null, Typeface.BOLD);
+        sectionTitle.setPadding(0, 8, 0, 8);
+        sectionTitle.setGravity(android.view.Gravity.CENTER);
+
+        sectionLayout.addView(sectionTitle);
+        return sectionLayout;
+    }
+
+    // 둥근 테마 배경 생성
+    private GradientDrawable createRoundedBackground() {
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(Color.parseColor("#f6f2f7"));
+        background.setCornerRadius(28f);
+        return background;
+    }
+
     private void displayMatchDetails(LinearLayout detailsLayout, MatchDto match, ParticipantDto currentPlayer) {
         detailsLayout.removeAllViews();
 
@@ -146,7 +237,6 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
                 .filter(p -> p.getTeamId() == 200)
                 .collect(Collectors.toList());
 
-        // Add table header
         // Add table header
         TableLayout tableLayout = new TableLayout(detailsLayout.getContext());
         TableRow headerRow = new TableRow(detailsLayout.getContext());
@@ -229,6 +319,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         LinearLayout playAnalysisSection = new LinearLayout(detailsLayout.getContext());
         playAnalysisSection.setOrientation(LinearLayout.VERTICAL);
 
+
         // 수정된 부분: 모서리 곡률을 추가한 GradientDrawable 생성
         GradientDrawable roundedBackground = new GradientDrawable();
         roundedBackground.setColor(Color.parseColor("#f6f2f7")); // 배경색
@@ -253,9 +344,9 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         playAnalysisSection.addView(thinLine);
 
         // Add rank information
-        String damageRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalDamageDealt), currentPlayer.getTotalDamageDealt());
-        String goldRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getGoldEarned), currentPlayer.getGoldEarned());
-        String minionRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled), currentPlayer.getTotalMinionsKilled());
+        String damageRank = this.calculateRank2(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalDamageDealt), currentPlayer.getTotalDamageDealt());
+        String goldRank = this.calculateRank2(allParticipants, Comparator.comparingInt(ParticipantDto::getGoldEarned), currentPlayer.getGoldEarned());
+        String minionRank = this.calculateRank2(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled), currentPlayer.getTotalMinionsKilled());
 
         addBoldLabelTextView(playAnalysisSection, "⚔️ 나의 딜량 순위: ", damageRank);
         addBoldLabelTextView(playAnalysisSection, "💰 골드 획득량 순위: ", goldRank);
@@ -270,9 +361,96 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         detailsLayout.addView(tableLayout); // 적군, 아군 정보
         detailsLayout.addView(spacer);      // 빈 공간 추가
         detailsLayout.addView(playAnalysisSection); // 플레이 분석 섹션
+        createAdditionalAnalysisSection(detailsLayout, allParticipants, currentPlayer);
+
+    }
+    // 추가할 부분: 추가 분석 섹션 생성
+    private void createAdditionalAnalysisSection(LinearLayout detailsLayout, List<ParticipantDto> allParticipants, ParticipantDto currentPlayer) {
+        boolean hasContent = false;
+        LinearLayout additionalAnalysisSection = createSectionLayout(detailsLayout, "추가 분석!");
+
+
+        // 나의 전투 기여도
+        String largestKillingSpree = formatValue(currentPlayer.getLargestKillingSpree(), "연속으로 죽지 않고 N번 적을 처치"); //getLargestKillingSpree
+        String objectivesStolen = formatValue(currentPlayer.getObjectivesStolen(), "오브젝트(드래곤, 내셔 남작 ..)는 N번 스틸");
+        String killAfterHidden = formatValue(challengesDto.getKillAfterHiddenWithAlly(), "아군과 매복 후 N번 킬 성공"); // killAfterHiddenWithAlly
+        String damageTakenPct = formatPercentage(challengesDto.getDamageTakenOnTeamPercentage(), "팀 총 피해 중 내 비율 N%"); //damageTakenOnTeamPercentage
+        String saveAlly = formatValue(challengesDto.getSaveAllyFromDeath(), "아군을 죽음에서 N번 구함"); // saveAllyFromDeath
+
+        // 나의 캐리력
+        String soloTurrets = formatRankAndValue(allParticipants, Comparator.comparingInt(p -> p.getChallenges().getSoloTurretsLategame()), currentPlayer.getChallenges().getSoloTurretsLategame(), "혼자 파괴한 포탑 수: N (팀 중 n등)");
+        String outnumberedKills = formatRankAndValue(allParticipants, Comparator.comparingInt(p -> p.getChallenges().getOutnumberedKills()), currentPlayer.getChallenges().getOutnumberedKills(), "내가 열세 상황일 때 나는 N 킬을 성공");
+
+        // 라인전 능력
+        String turretKills = formatRankAndValue(allParticipants, Comparator.comparingInt(ParticipantDto::getTurretKills), currentPlayer.getTurretKills(), "파괴한 포탑 수는 N개");
+        String laningAdvantage = formatPercentage(currentPlayer.getChallenges().getLaningPhaseGoldExpAdvantage(), "라인전 골드/경험치 우위 N%");
+
+        // 나의 생존력
+        String longestLiving = formatRankAndValue(allParticipants, Comparator.comparingInt(ParticipantDto::getLongestTimeSpentLiving), currentPlayer.getLongestTimeSpentLiving(), "죽지 않고 생존한 시간: N초");
+        String skillshotsDodged = formatRankAndValue(allParticipants, Comparator.comparingInt(p -> p.getChallenges().getSkillshotsDodged()), currentPlayer.getChallenges().getSkillshotsDodged(), "피한 스킬샷: N번");
+
+        // 각 항목 추가
+        hasContent |= addAnalysisLine(additionalAnalysisSection, largestKillingSpree);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, objectivesStolen);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, killAfterHidden);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, damageTakenPct);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, saveAlly);
+
+        hasContent |= addAnalysisLine(additionalAnalysisSection, soloTurrets);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, outnumberedKills);
+
+        hasContent |= addAnalysisLine(additionalAnalysisSection, turretKills);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, laningAdvantage);
+
+        hasContent |= addAnalysisLine(additionalAnalysisSection, longestLiving);
+        hasContent |= addAnalysisLine(additionalAnalysisSection, skillshotsDodged);
+
+        // 섹션 추가 여부 확인
+        if (hasContent) {
+            // 투명한 패딩 추가
+            View spacer = new View(detailsLayout.getContext());
+            spacer.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, 16)); // 높이 16px
+            spacer.setBackgroundColor(Color.TRANSPARENT);
+            detailsLayout.addView(spacer);
+
+            detailsLayout.addView(additionalAnalysisSection);
+        }
     }
 
-    private String calculateRank(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
+
+    private int calculateRank(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
+        // 내림차순 정렬
+        List<ParticipantDto> sortedList = participants.stream()
+                .sorted(comparator.reversed())
+                .collect(Collectors.toList());
+
+        int rank = 1;
+        for (ParticipantDto participant : sortedList) {
+            int compareValue;
+
+            // Comparator에 따라 비교할 필드 결정
+            if (comparator == Comparator.comparingInt(ParticipantDto::getTotalDamageDealt)) {
+                compareValue = participant.getTotalDamageDealt();
+            } else if (comparator == Comparator.comparingInt(ParticipantDto::getGoldEarned)) {
+                compareValue = participant.getGoldEarned();
+            } else if (comparator == Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled)) {
+                compareValue = participant.getTotalMinionsKilled();
+            } else {
+                continue; // 정의되지 않은 Comparator는 스킵
+            }
+
+            // compareValue와 currentPlayerValue 비교
+            if (compareValue == currentPlayerValue) {
+                return rank; // 값이 같으면 현재 순위 반환
+            }
+            rank++;
+        }
+
+        return -1; // 순위를 계산할 수 없는 경우
+    }
+
+    private String calculateRank2(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
         // 내림차순으로 정렬
         List<ParticipantDto> sortedList = participants.stream()
                 .sorted(comparator.reversed())
@@ -303,6 +481,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         }
         return "순위를 계산할 수 없습니다.";
     }
+
 
 
     private String formatParticipantInfo(ParticipantDto participant) {

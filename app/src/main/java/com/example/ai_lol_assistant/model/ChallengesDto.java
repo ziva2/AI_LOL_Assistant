@@ -68,6 +68,12 @@ public class ChallengesDto {
     private float goldPerMinute;
     private float teamDamagePercentage;
 
+    private int killAfterHiddenWithAlly;
+    private int saveAllyFromDeath;
+    private int outnumberedKills;
+
+    private int skillshotsDodged;
+
     // Getters for all fields
     public int getAssistStreakCount() {
         return assistStreakCount;
@@ -280,4 +286,13 @@ public class ChallengesDto {
     public float getTeamDamagePercentage() {
         return teamDamagePercentage;
     }
+
+    public int getKillAfterHiddenWithAlly() { return killAfterHiddenWithAlly; }
+
+    public int getSaveAllyFromDeath() { return saveAllyFromDeath; }
+
+    public int getOutnumberedKills() { return outnumberedKills; }
+
+    public int getSkillshotsDodged() { return skillshotsDodged; }
+
 }
