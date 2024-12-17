@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class RiotApiClient {
     private static final String BASE_URL = "https://asia.api.riotgames.com/";
-    private static final String API_KEY = "RGAPI-fa41a398-ee60-4b78-98d5-4c6f32760d34"; // API key
+    private static final String API_KEY = "RGAPI-be35a63b-7af6-46c6-b061-2852df0a0946"; // API key
 
     private static Retrofit retrofit;
 
