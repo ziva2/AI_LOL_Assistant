@@ -75,17 +75,17 @@
     <!-- 검색 버튼 -->
     <android.widget.Button
         android:id="@+id/btnSearch"
-        android:layout_width="147dp"
+        android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/search_bar_tagline"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/gradient_button_background"
-        android:text="확인하러 가기"
+        android:text="내 전적 보러가기"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="17dp"
         android:elevation="4dp" />
 
 </RelativeLayout>

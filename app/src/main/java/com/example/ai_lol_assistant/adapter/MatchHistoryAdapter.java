@@ -154,7 +154,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         // 수정된 부분: 헤더 배경에 투명도 추가
         GradientDrawable headerBackground = new GradientDrawable();
         headerBackground.setColor(Color.parseColor("#f6f2f7")); // #F2 = 95% 투명도
-        headerBackground.setCornerRadius(25f); // 모서리 반경 설정
+        headerBackground.setCornerRadius(28f); // 모서리 반경 설정
 
         headerRow.setBackground(headerBackground);
         headerRow.setPadding(8, 8, 8, 8);
@@ -194,8 +194,8 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
             // 수정된 부분: GradientDrawable에 투명도 추가
             GradientDrawable rowBackground = new GradientDrawable();
-            rowBackground.setColor(Color.parseColor("#80f6f2f7")); //99 = 60%, 73 = 45%, 80 = 50%
-            rowBackground.setCornerRadius(25f); // 모서리 반경 설정
+            rowBackground.setColor(Color.parseColor("#59f6f2f7")); //99 = 60%, 73 = 45%, 59 = 35%, 80 = 50%, 8C = 55%
+            rowBackground.setCornerRadius(28f); // 모서리 반경 설정
 
             row.setBackground(rowBackground); // 테마 적용
 
@@ -232,7 +232,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         // 수정된 부분: 모서리 곡률을 추가한 GradientDrawable 생성
         GradientDrawable roundedBackground = new GradientDrawable();
         roundedBackground.setColor(Color.parseColor("#f6f2f7")); // 배경색
-        roundedBackground.setCornerRadius(25f); // 모서리 반경 설정 (16dp)
+        roundedBackground.setCornerRadius(28f); // 모서리 반경 설정 (16dp)
 
         // 섹션에 적용
         playAnalysisSection.setBackground(roundedBackground);
@@ -240,7 +240,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
 
         TextView playAnalysisTitle = new TextView(detailsLayout.getContext());
-        playAnalysisTitle.setText("소환사님의 플레이 분석");
+        playAnalysisTitle.setText("소환사님의 플레이");
         playAnalysisTitle.setTypeface(null, Typeface.BOLD);
         playAnalysisTitle.setGravity(android.view.Gravity.CENTER);
         playAnalysisTitle.setPadding(0, 8, 0, 8);
@@ -257,9 +257,9 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
         String goldRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getGoldEarned), currentPlayer.getGoldEarned());
         String minionRank = this.calculateRank(allParticipants, Comparator.comparingInt(ParticipantDto::getTotalMinionsKilled), currentPlayer.getTotalMinionsKilled());
 
-        addBoldLabelTextView(playAnalysisSection, "딜량 순위: ", damageRank);
-        addBoldLabelTextView(playAnalysisSection, "골드 획득 순위: ", goldRank);
-        addBoldLabelTextView(playAnalysisSection, "미니언 처치 순위: ", minionRank);
+        addBoldLabelTextView(playAnalysisSection, "⚔️ 나의 딜량 순위: ", damageRank);
+        addBoldLabelTextView(playAnalysisSection, "💰 골드 획득량 순위: ", goldRank);
+        addBoldLabelTextView(playAnalysisSection, "🍄‍🟫 미니언 처치 수 순위: ", minionRank);
 
         // Add a transparent spacer before "플레이 분석 섹션"
         View spacer = new View(detailsLayout.getContext());
@@ -267,11 +267,9 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
                 ViewGroup.LayoutParams.MATCH_PARENT, 32)); // 32px 또는 원하는 높이 설정
         spacer.setBackgroundColor(Color.TRANSPARENT); // 투명 배경
 
-        detailsLayout.addView(tableLayout); // 적군/아군 정보
+        detailsLayout.addView(tableLayout); // 적군, 아군 정보
         detailsLayout.addView(spacer);      // 빈 공간 추가
         detailsLayout.addView(playAnalysisSection); // 플레이 분석 섹션
-
-
     }
 
     private String calculateRank(List<ParticipantDto> participants, Comparator<ParticipantDto> comparator, int currentPlayerValue) {
@@ -299,7 +297,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
                     return currentPlayerValue;
                 }
             }) == 0) {
-                return rank == 1 ? "축하합니다! 1등입니다!" : rank + "등";
+                return rank == 1 ? "축하해🥳 1등!" : rank + "등";
             }
             rank++;
         }
