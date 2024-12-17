@@ -66,9 +66,25 @@ LBook(롤북)을 처음 실행하면 소환사명과 태그를 입력할 수 있
   - 아군과 적군의 챔피언 정보
   - 각 플레이어의 KDA(킬/데스/어시스트)
   - 나의 **딜량**, **골드 획득량**, **미니언 처치 수** 순위
+  - 특히, 해당 항목에서 1등을 차지하면 축하 메시지가 표시된다. 이를 통해 자신의 경기 기여도를 한눈에 확인할 수 있다.
 
-특히, 해당 항목에서 1등을 차지하면 축하 메시지가 표시된다. 이를 통해 자신의 경기 기여도를 한눈에 확인할 수 있다.
+  **또한,**
+ - **ParticipantDto에서**
+   - getLargestKillingSpree() : 죽지 않고 연속으로 적을 처치한 횟수
+   - getObjectivesStolen() : 오브젝트(드래곤, 내셔 남작 ..) 스틸 횟수
+   - getTurretKills() : 파괴한 포탑 수
+   - getLongestTimeSpentLiving() : "죽지 않고 최대로 생존한 시간
+   - (수치가 0이면 출력하지 않음.)
 
+- **ChallengesDto에서**
+  - getKillAfterHiddenWithAlly() : 아군과 매복 후 킬 성공 횟수
+  - getDamageTakenOnTeamPercentage() : 팀 총 피해량 중 내 비율 
+  - getSaveAllyFromDeath() : 아군을 죽음에서 구한 횟수
+  - getSoloTurretsLategame() : 혼자 파괴한 포탑 수
+  - getOutnumberedKills() : 열세 상황일 때 킬 성공 수
+  - getSkillshotsDodged() : 피한 스킬샷 수
+  - (수치가 0이면 출력하지 않음.)
+  
 <div style="text-align: center;">
 <img src="./photo/3-10.png" alt="실행 화면" width="250"> <img src="./photo/3-11.png" alt="실행 화면" width="250"> <img src="./photo/3-12.png" alt="실행 화면" width="250"> 
 </div>
