@@ -70,7 +70,7 @@ LoLBook(롤북)을 처음 실행하면 소환사명과 태그를 입력할 수 �
 특히, 해당 항목에서 1등을 차지하면 축하 메시지가 표시된다. 이를 통해 자신의 경기 기여도를 한눈에 확인할 수 있다.
 
 <div style="text-align: center;">
-<img src="./photo/2-3.png" alt="실행 화면" width="250"> <img src="./photo/2-5.png" alt="실행 화면" width="250"> <img src="./photo/2-4.png" alt="실행 화면" width="250">
+<img src="./photo/2-6.png" alt="실행 화면" width="250"> <img src="./photo/2-7.png" alt="실행 화면" width="250"> 
 </div>
 
 ## 🎮 마무리

@@ -185,7 +185,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<MatchHistoryAdapte
 
             // 수정된 부분: GradientDrawable에 투명도 추가
             GradientDrawable rowBackground = new GradientDrawable();
-            rowBackground.setColor(Color.parseColor("#80f6f2f7")); //80 = 50%
+            rowBackground.setColor(Color.parseColor("#80f6f2f7")); //99 = 60%, 73 = 45%, 80 = 50%
             rowBackground.setCornerRadius(25f); // 모서리 반경 설정
 
             row.setBackground(rowBackground); // 테마 적용
